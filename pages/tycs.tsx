@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import { GetStaticProps, NextPage } from "next";
 import React from "react";
 import { TyC, TyCsAPIResponse } from "../types";
 import styles from "../styles/TYC.module.css";
@@ -7,7 +7,7 @@ import Head from "next/head";
 // Por ahora estamos utilizando data mockeada, pero
 // debemos reemplazar esto por información proveniente de la
 // API
-export const data: TyCsAPIResponse = {
+/* export const data: TyCsAPIResponse = {
   version: "3 de julio, 2022",
   tycs: [
     {
@@ -18,9 +18,13 @@ export const data: TyCsAPIResponse = {
                     comprar, pagar, enviar productos y realizar otras actividades comerciales con tecnología aplicada.`,
     },
   ],
-};
+}; */
 
-const TerminosYCondiciones: NextPage = () => {
+interface Props{
+  data: TyCsAPIResponse
+}
+
+const TerminosYCondiciones: NextPage<Props> = ({data}:Props) => {
   if (!data) return null;
 
   const { version, tycs } = data;
@@ -50,5 +54,16 @@ const TerminosYCondiciones: NextPage = () => {
 
 // Aquí debemos agregar el método para obtener la información
 // de la API
+export const getStaticProps: GetStaticProps = async () => {
+  const res = await fetch(`https://localhost:3000/api/tycs`)
+  const data : TyCsAPIResponse= await res.json()
+  return {
+      props: {
+          data
+      }
+  }
+}
+
+
 
 export default TerminosYCondiciones;
