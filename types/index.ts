@@ -7,7 +7,7 @@ export type Product = {
   rating: number;
 };
 
-export type ProductsAPIResponse = Product[];
+export type ProductsAPIResponse = { products: Product[] }
 
 export type TyC = {
   id: number;

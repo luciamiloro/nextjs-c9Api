@@ -47,7 +47,7 @@ const TerminosYCondiciones: NextPage<Props> = ({data}:Props) => {
       </Head>
       <h2>Terminos y Concidiones</h2>
       <p>Versión: {version}</p>
-      {tycs.map(renderTyc)}
+      {data.tycs.tycs.map(renderTyc)}
     </div>
   );
 };
@@ -55,8 +55,9 @@ const TerminosYCondiciones: NextPage<Props> = ({data}:Props) => {
 // Aquí debemos agregar el método para obtener la información
 // de la API
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch(`https://localhost:3000/api/tycs`)
+  const res = await fetch(`http://localhost:3000/api/tycs`)
   const data : TyCsAPIResponse= await res.json()
+  console.log(data)
   return {
       props: {
           data
